@@ -5,7 +5,16 @@ import type { Playground } from "@/lib/lessons";
 
 type PyodideInterface = {
   runPythonAsync: (code: string) => Promise<unknown>;
-  setStdout: (opts: { batched: (msg: string) => void }) => void;
+  setStdout: (opts: {
+    write?: (buf: Uint8Array) => number;
+    batched?: (msg: string) => void;
+    isatty?: boolean;
+  }) => void;
+  setStderr: (opts: {
+    write?: (buf: Uint8Array) => number;
+    batched?: (msg: string) => void;
+    isatty?: boolean;
+  }) => void;
   setStdin: (opts: { stdin: () => string }) => void;
 };
 
@@ -104,11 +113,15 @@ export function PythonPlayground({ playground }: { playground: Playground }) {
     try {
       const pyodide = await getPyodide();
       const chunks: string[] = [];
-      pyodide.setStdout({
-        batched: (msg) => {
-          chunks.push(msg);
-        },
-      });
+      // Use write (not batched): Pyodide's batched handler strips newlines,
+      // which glued multiple print() lines into one.
+      const decoder = new TextDecoder();
+      const capture = (buf: Uint8Array) => {
+        chunks.push(decoder.decode(buf));
+        return buf.length;
+      };
+      pyodide.setStdout({ write: capture, isatty: false });
+      pyodide.setStderr({ write: capture, isatty: false });
 
       const inputs = [...(playground.sampleInputs ?? [])];
       let inputIndex = 0;
