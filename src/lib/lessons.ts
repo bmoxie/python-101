@@ -10,6 +10,19 @@ export type Playground = {
   hint?: string;
 };
 
+export type StretchGoal = {
+  /** Short challenge in everyday words */
+  prompt: string;
+  /** Plain-English explanation when they tap “I don’t know what that means” */
+  explain: string;
+  /** Optional jargon dictionary */
+  jargon?: { term: string; meaning: string }[];
+  /** Step-by-step mini lesson */
+  miniLesson: string[];
+  /** Optional runnable demo for the mini lesson */
+  demo?: Playground;
+};
+
 export type Lesson = {
   slug: string;
   number: number;
@@ -21,7 +34,7 @@ export type Lesson = {
   teach: string[];
   example: Playground;
   challenge: Playground;
-  stretch?: string;
+  stretch?: StretchGoal;
 };
 
 export const lessons: Lesson[] = [
@@ -57,7 +70,32 @@ print("I am learning Python.")`,
       expectIncludes: "print(",
       hint: "You need three separate print(\"...\") lines.",
     },
-    stretch: "Can you print a tiny 3-line ASCII smiley using only print()?",
+    stretch: {
+      prompt:
+        "Print a tiny face made of keyboard characters — three lines that look like a smiley.",
+      explain:
+        "This means draw a simple face using only letters and symbols on your keyboard (like : and ), not a photo. Each print() makes one line of the face.",
+      jargon: [
+        {
+          term: "ASCII art",
+          meaning:
+            "Old-school drawings made from typing characters. Example: a smile made of : and )",
+        },
+      ],
+      miniLesson: [
+        "Think of three lines stacked: eyes on line 1, nose on line 2, mouth on line 3.",
+        "Each line is its own print(\"...\") — same skill as the main challenge.",
+        "Try the starter below, then change the characters to invent your own face.",
+      ],
+      demo: {
+        id: "l1-stretch",
+        title: "Try a face",
+        instructions: "Press Run. Then change the characters inside the quotes.",
+        starterCode: `print("  o o  ")
+print("   ^   ")
+print("  \\_/  ")`,
+      },
+    },
   },
   {
     slug: "name-tags",
@@ -99,7 +137,32 @@ pet_type = ""
       expectIncludes: "is a",
       hint: "Fill in the variables, then print(pet_name + \" is a \" + pet_type)",
     },
-    stretch: "Add an age variable and include it in your sentence.",
+    stretch: {
+      prompt: "Add an age variable and include it in your sentence.",
+      explain:
+        "You already have pet_name and pet_type. Make one more labeled box called age that holds a number, then mention that number when you print.",
+      jargon: [
+        {
+          term: "variable",
+          meaning: "A name that remembers a value, like age = 3",
+        },
+      ],
+      miniLesson: [
+        "Under your other variables, add something like: age = 3",
+        "Numbers do not need quotes.",
+        "When you print, turn the number into text with str(age), same trick as Lesson 2’s example.",
+        "Try the demo, then copy the idea into your challenge code.",
+      ],
+      demo: {
+        id: "l2-stretch",
+        title: "Age in a sentence",
+        instructions: "Run this, then change the age number.",
+        starterCode: `pet_name = "Mochi"
+pet_type = "cat"
+age = 3
+print(pet_name + " is a " + pet_type + " and is " + str(age) + " years old.")`,
+      },
+    },
   },
   {
     slug: "asking-questions",
@@ -137,7 +200,32 @@ print("Welcome to Python 101.")`,
       expectIncludes: "teal",
       hint: "color = input(\"Favorite color? \") then print something with color in it.",
     },
-    stretch: "Ask two questions (name + color) and use both in one sentence.",
+    stretch: {
+      prompt: "Ask two questions (name + color) and use both in one sentence.",
+      explain:
+        "Call input() twice — once for a name, once for a color — store each answer in its own variable, then print one sentence that uses both answers.",
+      jargon: [
+        {
+          term: "input()",
+          meaning: "Pauses and waits for an answer, then gives you that answer as text.",
+        },
+      ],
+      miniLesson: [
+        "First line: name = input(\"Name? \")",
+        "Second line: color = input(\"Favorite color? \")",
+        "Then print one sentence that adds both with +",
+        "Sample answers below are already set so Run works immediately.",
+      ],
+      demo: {
+        id: "l3-stretch",
+        title: "Two questions",
+        instructions: "Sample answers: Jordan, then purple.",
+        starterCode: `name = input("Name? ")
+color = input("Favorite color? ")
+print(name + " loves the color " + color + "!")`,
+        sampleInputs: ["Jordan", "purple"],
+      },
+    },
   },
   {
     slug: "making-choices",
@@ -182,7 +270,38 @@ answer = answer.lower()
       expectIncludes: "pizza",
       hint: "if answer == \"yes\": then an indented print. else: another print.",
     },
-    stretch: "Add elif for a third option, like \"maybe\".",
+    stretch: {
+      prompt: "Add a third choice with elif — for example, someone answers \"maybe\".",
+      explain:
+        "if handles one answer. else handles everything else. elif (say “else if”) sits in the middle for another specific answer before you give up and use else.",
+      jargon: [
+        {
+          term: "elif",
+          meaning: "Short for “else if” — check another condition after if failed.",
+        },
+      ],
+      miniLesson: [
+        "Keep your if answer == \"yes\": block.",
+        "Under it, add: elif answer == \"maybe\": with its own indented print.",
+        "Then else: for anything that isn’t yes or maybe.",
+        "Try the demo with sample answer maybe.",
+      ],
+      demo: {
+        id: "l4-stretch",
+        title: "Three paths",
+        instructions: "Sample answer is maybe. Change it to yes or no and re-run.",
+        starterCode: `answer = input("Do you like pizza? ")
+answer = answer.lower()
+
+if answer == "yes":
+    print("Pizza party!")
+elif answer == "maybe":
+    print("We can share a slice.")
+else:
+    print("More pasta for you!")`,
+        sampleInputs: ["maybe"],
+      },
+    },
   },
   {
     slug: "repeat-that",
@@ -218,7 +337,32 @@ print("Go!")`,
       expectIncludes: "Ada",
       hint: "for i in range(5): then an indented print(name)",
     },
-    stretch: "Print numbered lines like \"1. Ada\", \"2. Ada\", … using the loop variable.",
+    stretch: {
+      prompt:
+        "Print numbered lines like \"1. Ada\", \"2. Ada\"… using the loop’s counting variable.",
+      explain:
+        "In for i in range(5): the letter i is a tiny counter. Each lap it becomes a new number. You can print that number next to the name.",
+      jargon: [
+        {
+          term: "loop variable",
+          meaning: "The name after for (like i) that changes each time the loop repeats.",
+        },
+      ],
+      miniLesson: [
+        "range(5) gives 0, 1, 2, 3, 4 — computers often start counting at 0.",
+        "To show 1–5 for humans, print i + 1.",
+        "Glue the number and name: print(str(i + 1) + \". \" + name)",
+        "Run the demo, then adapt it in your challenge box.",
+      ],
+      demo: {
+        id: "l5-stretch",
+        title: "Numbered repeats",
+        instructions: "Press Run. Try changing the name.",
+        starterCode: `name = "Ada"
+for i in range(5):
+    print(str(i + 1) + ". " + name)`,
+      },
+    },
   },
   {
     slug: "packing-lists",
@@ -259,7 +403,30 @@ print("First quest:", quests[0])`,
       expectIncludes: "-",
       hint: "Fill the list, then: for g in games: print(\"- \" + g)",
     },
-    stretch: "Print how many games are in your list with len().",
+    stretch: {
+      prompt: "Print how many games are in your list using len().",
+      explain:
+        "len() means “length” — how many items are inside the list. You don’t count by hand; Python counts for you.",
+      jargon: [
+        {
+          term: "len()",
+          meaning: "Returns how many things are in a list (or how many characters are in a string).",
+        },
+      ],
+      miniLesson: [
+        "After your games list exists, write: print(len(games))",
+        "Or make a friendlier sentence with str(len(games)).",
+        "Run the demo to see the number change when you append another game.",
+      ],
+      demo: {
+        id: "l6-stretch",
+        title: "Count the list",
+        instructions: "Run, then uncomment the append line and run again.",
+        starterCode: `games = ["Minecraft", "Roblox", "Stardew"]
+# games.append("Celeste")
+print("You listed " + str(len(games)) + " games.")`,
+      },
+    },
   },
   {
     slug: "your-own-recipes",
@@ -301,7 +468,35 @@ shout("python")`,
       expectIncludes: "!",
       hint: "Inside the function: print(name + \" loves \" + hobby + \"!\") then call it twice.",
     },
-    stretch: "Make a function that returns a string instead of printing, then print the result.",
+    stretch: {
+      prompt:
+        "Make a function that returns a string instead of printing, then print the result yourself.",
+      explain:
+        "So far your functions print for you. return hands a value back to the caller — like a recipe that gives you the cake so you decide what to do with it (print it, save it, etc.).",
+      jargon: [
+        {
+          term: "return",
+          meaning: "Sends a value out of the function to whoever called it.",
+        },
+      ],
+      miniLesson: [
+        "Inside the function, use return \"some text\" instead of print(...).",
+        "When you call it, catch the result: message = introduce(\"Maya\", \"coding\")",
+        "Then print(message) outside the function.",
+        "Try the demo — notice print lives outside the function.",
+      ],
+      demo: {
+        id: "l7-stretch",
+        title: "Return, then print",
+        instructions: "Run this. Then change the names in the calls.",
+        starterCode: `def introduce(name, hobby):
+    return name + " loves " + hobby + "!"
+
+message = introduce("Maya", "coding")
+print(message)
+print(introduce("Sam", "soccer"))`,
+      },
+    },
   },
   {
     slug: "build-a-game",
@@ -367,8 +562,49 @@ else:
       expectIncludes: "win",
       hint: "Change secret, the title print, and the message strings. Keep the if/elif/else logic.",
     },
-    stretch:
-      "Add a score that starts at 100 and loses 10 points each wrong guess. Print the final score.",
+    stretch: {
+      prompt:
+        "Add a score that starts at 100 and loses 10 points on each wrong guess. Print the final score.",
+      explain:
+        "Make a variable called score that begins at 100. Every time the guess is wrong, subtract 10. When the game ends, print whatever score is left.",
+      jargon: [
+        {
+          term: "score -= 10",
+          meaning: "Shorthand for score = score - 10 (take 10 points away).",
+        },
+      ],
+      miniLesson: [
+        "Near the top, add: score = 100",
+        "In the too-low and too-high branches (wrong guesses), add: score = score - 10",
+        "Don’t subtract when they win.",
+        "At the end, print the score. The demo shows one way.",
+      ],
+      demo: {
+        id: "l8-stretch",
+        title: "Scoring version",
+        instructions: "Sample guesses: 2, then 9, then 5. Watch the score drop, then win.",
+        starterCode: `secret = 5
+tries = 3
+score = 100
+
+print("Guess 1-10. Tries:", tries)
+
+for attempt in range(tries):
+    guess = int(input("Guess: "))
+    if guess == secret:
+        print("You win! Score:", score)
+        break
+    elif guess < secret:
+        print("Too low.")
+        score = score - 10
+    else:
+        print("Too high.")
+        score = score - 10
+else:
+    print("Game over. It was", secret, "Score:", score)`,
+        sampleInputs: ["2", "9", "5"],
+      },
+    },
   },
 ];
 

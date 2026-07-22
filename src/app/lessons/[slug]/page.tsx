@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CompleteToggle } from "@/components/CompleteToggle";
 import { PythonPlayground } from "@/components/PythonPlayground";
+import { StretchHelp } from "@/components/StretchHelp";
 import { getAdjacentLessons, getLesson, lessons } from "@/lib/lessons";
 
 type PageProps = {
@@ -63,8 +64,7 @@ export default async function LessonPage({ params }: PageProps) {
 
       {lesson.stretch && (
         <section className="panel">
-          <h2>Stretch (optional)</h2>
-          <p className="stretch">{lesson.stretch}</p>
+          <StretchHelp stretch={lesson.stretch} />
         </section>
       )}
 

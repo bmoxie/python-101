@@ -365,6 +365,104 @@ a {
   line-height: 1.45;
 }
 
+.stretch-block h2 {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+}
+
+.stretch-prompt {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border-radius: 0.9rem;
+  background: rgba(232, 93, 59, 0.1);
+  border-left: 4px solid var(--coral);
+  color: var(--ink);
+  line-height: 1.45;
+  font-weight: 700;
+}
+
+.stretch-note {
+  margin: 0.75rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.stretch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.btn.is-active {
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+.stretch-panel {
+  margin-top: 1rem;
+  padding: 1rem 1.05rem 1.1rem;
+  border-radius: 1rem;
+  background: rgba(20, 35, 58, 0.04);
+  border: 1px solid var(--line);
+  display: grid;
+  gap: 0.85rem;
+}
+
+.stretch-panel h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+
+.stretch-panel > p {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.jargon-list {
+  margin: 0;
+  display: grid;
+  gap: 0.65rem;
+}
+
+.jargon-item {
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.75rem;
+  background: var(--sand);
+  border: 1px solid var(--line);
+}
+
+.jargon-item dt {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--coral-deep);
+}
+
+.jargon-item dd {
+  margin: 0.25rem 0 0;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.mini-steps {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.45rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+}
+
+.stretch-demo {
+  margin-top: 0.25rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--line);
+}
+
+
 .playground {
   display: grid;
   gap: 0.85rem;
